@@ -1,11 +1,14 @@
 package com.example.hibernate2.model.entity;
 
-import lombok.Data;
+import lombok.*;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "products")
 @NamedQueries({
@@ -14,7 +17,6 @@ import java.util.List;
         @NamedQuery(name = "Product.findById", query = "FROM Product p WHERE p.id = :id"),
         @NamedQuery(name = "Product.deleteById", query = "DELETE FROM Product p WHERE p.id = :id")
 })
-
 public class Product {
 
     @Id
@@ -28,6 +30,8 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany
     @JoinTable(
             name = "order_products",
@@ -35,18 +39,8 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "order_id"))
     private List<Order> orders;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "product")
     private List<CartEntry> cartEntries;
-
-    public Product() { }
-
-    public Product(Long id, String name, BigDecimal price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-    }
-    @Override
-    public String toString() {
-        return String.format("Product id = %s, name = %s, price = %s", id, name, price);
-    }
 }

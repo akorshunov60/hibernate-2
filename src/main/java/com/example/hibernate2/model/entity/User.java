@@ -1,7 +1,9 @@
 package com.example.hibernate2.model.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -29,11 +31,8 @@ public class User {
     @Column (name = "name")
     private String name;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Order> orders;
-
-    @Override
-    public String toString() {
-        return String.format("User id = %s, name = %s", id, name);
-    }
 }

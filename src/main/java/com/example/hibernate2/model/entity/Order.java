@@ -1,7 +1,9 @@
 package com.example.hibernate2.model.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,19 +14,19 @@ import java.util.List;
 @Table(name = "orders")
 public class Order {
 
-    public Order(User user) {
-        this.user = user;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id")
     private Long id;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn (name = "user_id")
     private User user;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany
     @JoinTable(
             name = "order_products",
@@ -32,11 +34,8 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "order")
     private List<CartEntry> cartEntries;
-
-    @Override
-    public String toString() {
-        return String.format("Order {id = %s, user_id = %s}", id, user.getId());
-    }
 }
