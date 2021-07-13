@@ -1,14 +1,12 @@
 package com.example.hibernate2.model.repository;
 
 import com.example.hibernate2.model.entity.User;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-@Data
 @RequiredArgsConstructor
 @Repository
 public class UserRepositoryImpl implements UserRepository {

@@ -1,6 +1,6 @@
 package com.example.hibernate2.service;
 
-import com.example.hibernate2.model.entity.Cart;
+import com.example.hibernate2.model.Cart;
 import com.example.hibernate2.model.entity.CartEntry;
 import com.example.hibernate2.model.entity.Product;
 import com.example.hibernate2.model.repository.ProductRepository;
@@ -10,12 +10,10 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @Service
-//@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CartServiceImpl implements CartService {
 
     private final EntityManager em;
@@ -34,7 +32,7 @@ public class CartServiceImpl implements CartService {
     }
 
     public List<CartEntry> findAllProductsById(Long orderId) {
-        List<CartEntry> cartEntryList = em.createQuery("FROM CartEntry c WHERE c.order_id = :orderId")
+        List<CartEntry> cartEntryList = em.createQuery("SELECT c FROM CartEntry c WHERE c.order_id = :orderId")
                 .setParameter("order_id", orderId)
                 .getResultList();
         return cartEntryList;
@@ -96,7 +94,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<Product> getCartListSorted(Cart cart) {
         List<Product> cartList = new ArrayList<>(cart.getCartMap().keySet());
-        Collections.sort(cartList, (p1, p2) -> {
+        cartList.sort((p1, p2) -> {
             if (p1.getId() > p2.getId()) {
                 return 1;
             } else if (p1.getId() < p2.getId()) {

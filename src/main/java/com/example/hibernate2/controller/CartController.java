@@ -1,12 +1,8 @@
 package com.example.hibernate2.controller;
 
-import com.example.hibernate2.model.entity.Cart;
+import com.example.hibernate2.model.Cart;
 import com.example.hibernate2.service.CartService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,21 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Data
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/cart")
 public class CartController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
-
-    private CartService cartService;
-    private Cart cart;
-
-    @Autowired
-    private void cartController(CartService cartService) {
-        this.cartService = cartService;
-        cart = cartService.getNewCart();
-    }
+    private final CartService cartService;
+    private final Cart cart;
 
     @ModelAttribute("activePage")
     String activePage() {

@@ -1,5 +1,6 @@
-package com.example.hibernate2.model.entity;
+package com.example.hibernate2.model;
 
+import com.example.hibernate2.model.entity.Product;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Scope;
@@ -9,7 +10,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
 @RequiredArgsConstructor
 @Component
 @Scope("prototype")

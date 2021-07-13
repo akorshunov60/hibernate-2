@@ -1,6 +1,6 @@
 package com.example.hibernate2.service;
 
-import com.example.hibernate2.model.entity.Cart;
+import com.example.hibernate2.model.Cart;
 import com.example.hibernate2.model.entity.CartEntry;
 import com.example.hibernate2.model.entity.Product;
 
